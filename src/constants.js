@@ -1,1 +1,0 @@
-export const LOGO = process.env.PUBLIC_URL + '/car.png'

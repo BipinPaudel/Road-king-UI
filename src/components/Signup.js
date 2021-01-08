@@ -1,13 +1,29 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {LOGO} from "../constants";
 import styled from 'styled-components'
 import {Link, useHistory} from "react-router-dom";
 import {useAuthContext} from "../context/auth_context";
+import MyAlert from "./Myalert";
 
 function Signup() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('password')
-  const {openLogin} = useAuthContext();
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  const {openLogin, isAlert, loginInfo, signup, isLoggedIn} = useAuthContext();
+  let history = useHistory();
+  const submitForm = (e) => {
+    e.preventDefault();
+    signup(email, password, setPassword)
+  }
+
+  useEffect(()=>{
+    if (isLoggedIn && loginInfo){
+      history.push('/vehicles')
+    } else{
+      history.push('/')
+    }
+  }, [loginInfo, isLoggedIn])
 
   return (
       <Wrapper>
@@ -19,19 +35,23 @@ function Signup() {
                 alt=""
             />
           </Link>
-
+          {
+            isAlert && <MyAlert type={'invalid'}/>
+          }
           <div className="login__container">
             <h1> Sign up </h1>
             <form>
               <h5>E-mail</h5>
-              <input type="email"/>
+              <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
 
               <h5>Password</h5>
-              <input type="password"/>
+              <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+
 
               <h5>Password Confirmation</h5>
-              <input type="password"/>
-              <button type="submit" className="login__signInButton">Sign Up</button>
+              <input type="password" name='confirm_password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+
+              <button type="submit" className="login__signInButton" onClick={submitForm}>Sign Up</button>
             </form>
 
             <p>

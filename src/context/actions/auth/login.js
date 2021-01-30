@@ -1,7 +1,7 @@
 import axiosInstance from "../../../helpers/axiosInstance";
 import {AUTH_FAILURE, LOGIN_USER} from "../../../actions";
 
-export const login = (email, password) => (dispatch) => {
+export const login = ({email, password}) => (dispatch) => {
   axiosInstance().post('/api/v1/sign_in', {
     password, email
   })

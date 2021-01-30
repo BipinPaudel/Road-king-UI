@@ -3,11 +3,13 @@ import {Link} from "react-router-dom";
 import {LOGO} from "../../constants";
 import './index.css';
 import {Button, Form, Grid, Header as SemanticHeader, Segment} from "semantic-ui-react";
+import {Header} from "../../components";
 
 const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid}}) => {
   console.log("from loginm ui")
   return (
       <div>
+        <Header/>
         <Grid centered>
           <Grid.Column style={{maxWidth: 550, marginTop: 20}}>
             <Link to="/auth/login">
@@ -46,7 +48,8 @@ const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid}}) => {
                     type="submit"
                     disabled={loginFormValid}
                     className="login__signInButton"
-                    onClick={onSubmit}>Sign Up
+                    onClick={onSubmit}>Sign In
+
                 </Button>
               </Form>
 

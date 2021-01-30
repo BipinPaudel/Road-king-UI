@@ -1,6 +1,7 @@
 import React, {useState, useContext}  from 'react';
 import {GlobalContext} from "../../context/Provider";
 import {useHistory} from "react-router";
+import {register} from "../../context/actions/auth/register";
 
 
 export default () => {
@@ -23,6 +24,7 @@ export default () => {
 
   const onSubmit = () => {
     setFieldErrors({});
+    register(form)(authDispatch);
   }
 
   return {form, onChange,registerFormValid,onSubmit,fieldErrors}

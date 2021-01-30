@@ -9,10 +9,12 @@ import {
   Header as SemanticHeader,
     Segment
 } from "semantic-ui-react";
+import {Header} from "../../components";
 
 const RegisterUI = ({form: {onChange, form, registerFormValid, onSubmit, fieldErrors}}) => {
   return (
       <div>
+        <Header/>
         <Grid centered>
           <Grid.Column style={{maxWidth: 550, marginTop: 20}}>
             <Link to="/auth/login">

@@ -4,7 +4,7 @@ import {
   LOGIN_USER,
   SHOW_LOGIN,
   SHOW_SIGNUP, SIGNUP_USER
-} from '../actions'
+} from '../../actions'
 
 const auth_reducer = (state, action) => {
   if (action.type === SHOW_LOGIN){
@@ -16,7 +16,13 @@ const auth_reducer = (state, action) => {
   }
 
   if (action.type === LOGIN_USER){
-    return {...state, loginInfo: action.payload, isLoggedIn: true}
+    return {
+      ...state,
+      auth:{
+        ...state.auth,
+        loginInfo: action.payload,
+      }
+    }
   }
 
   if (action.type === AUTH_FAILURE){
@@ -28,7 +34,7 @@ const auth_reducer = (state, action) => {
   }
 
   if (action.type === SIGNUP_USER){
-    return { ...state, loginInfo: action.payload , isLoggedIn: true}
+    return { ...state, loginInfo: action.payload}
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)

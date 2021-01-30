@@ -32,4 +32,4 @@ const Wrapper = styled.footer`
   }
 `
 
-export default Footer
+export default Footer;

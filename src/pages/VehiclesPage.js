@@ -1,8 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Sort, Filters, VehicleList} from '../components'
 
 const VehiclesPage = () => {
-  return <h1>Vehicles Page</h1>
+  return <main>
+    <Wrapper className="page">
+      <div className="section-center products">
+        <div>
+          <Sort/>
+          <VehicleList/>
+        </div>
+      </div>
+    </Wrapper>
+  </main>
 }
+
+const Wrapper = styled.div`
+  .vehicles {
+    display: grid;
+    gap: 3rem 1.5rem;
+    margin: 4rem auto;
+  }
+  @media (min-width: 768px) {
+    .vehicles {
+      grid-template-columns: 200px 1fr;
+    }
+  }
+`
 
 export default VehiclesPage;

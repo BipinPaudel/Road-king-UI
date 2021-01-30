@@ -10,7 +10,7 @@ function Signup() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const {openLogin, isAlert, loginInfo, signup, isLoggedIn} = useAuthContext();
+  const {openLogin, isAlert, loginInfo, signup} = useAuthContext();
   let history = useHistory();
   const submitForm = (e) => {
     e.preventDefault();
@@ -18,12 +18,12 @@ function Signup() {
   }
 
   useEffect(()=>{
-    if (isLoggedIn && loginInfo){
+    if (loginInfo){
       history.push('/vehicles')
     } else{
       history.push('/')
     }
-  }, [loginInfo, isLoggedIn])
+  }, [loginInfo])
 
   return (
       <Wrapper>

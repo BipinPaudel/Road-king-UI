@@ -1,24 +1,35 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {Navbar, Footer} from './components';
-import {Vehicles,SingleVehicle,PrivateRoute, Auth} from "./pages";
+import 'semantic-ui-css/semantic.min.css'
+import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom";
+import routes from "./routes";
+import isAuthenticated from "./utils/isAuthenticated";
+import {GlobalProvider} from "./context/Provider";
+
+const RenderRoute = (route) => {
+  const history = useHistory();
+  document.title = route.title || 'Vehicle Tracker';
+  if (route.needsAuth && !isAuthenticated()) {
+    history.push('/auth/login');
+  } else {
+    return <Route
+        path={route.path} exact
+        render={(props) => <route.component {...props}/>}
+    />
+  }
+}
 
 function App() {
   return (
-      <Router>
-        <Navbar/>
-        <Switch>
-          <Route exact path='/'>
-            <Auth/>
-          </Route>
-          <PrivateRoute exact path='/vehicles'>
-            <Vehicles/>
-          </PrivateRoute>
+      <GlobalProvider>
+        <Router>
+          <Switch>
+            {routes.map((route, index) => (
+                <RenderRoute {...route} key={index}/>
+            ))}
+          </Switch>
+        </Router>
+      </GlobalProvider>
 
-          <PrivateRoute exact path='/vehicle/:id' children={<SingleVehicle/>}/>
-        </Switch>
-        <Footer/>
-      </Router>
   );
 }
 

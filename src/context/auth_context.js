@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState, useReducer} from 'react'
-import reducer from '../reducers/auth_reducer';
-import { useHistory } from "react-router-dom";
+import React, {useContext, useEffect , useReducer} from 'react'
+import reducer from './reducers/auth_reducer';
+import axiosInstance from "../helpers/axiosInstance";
 
 import axios from 'axios'
 
@@ -8,20 +8,29 @@ import {
   SHOW_LOGIN,
   SHOW_SIGNUP,
   LOGIN_USER,
-  SIGNUP_USER, LOGIN_FAILED, AUTH_FAILURE, CLEAR_ALERTS,
+  SIGNUP_USER, AUTH_FAILURE, CLEAR_ALERTS,
 } from '../actions';
 
 const AuthContext = React.createContext()
 
+const getLoginInfo = () => {
+  let loginInfo = localStorage.getItem('loginInfo');
+  if (loginInfo){
+    return JSON.parse(loginInfo)
+  } else {
+    return null;
+  }
+}
+
 const initialState = {
   isLoginOpen: true,
-  loginInfo: null,
-  isLoggedIn: false,
+  loginInfo: getLoginInfo(),
   isAlert: false,
   alerts:[],
 }
+
+
 export const AuthProvider = ({children}) => {
-  let history = useHistory();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const openLogin = () => {
@@ -29,7 +38,6 @@ export const AuthProvider = ({children}) => {
   }
 
   const openSignup = () => {
-    console.log('open signup here')
     dispatch({type: SHOW_SIGNUP})
   }
 
@@ -39,13 +47,14 @@ export const AuthProvider = ({children}) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/v1/sign_in', {
+      const response = await axiosInstance().post('/api/v1/sign_in', {
         email: email,
         password: password
       })
       const res = response.data;
       console.log('before dispatch')
       dispatch({type: LOGIN_USER, payload: res.data});
+      localStorage.token = res.data.token;
       console.log('after dispatch')
     } catch (e) {
       dispatch({type: AUTH_FAILURE, payload: ['Invalid email or password']});
@@ -66,6 +75,10 @@ export const AuthProvider = ({children}) => {
       dispatch({type: AUTH_FAILURE, payload: [e.response.data.messages]});
     }
   }
+
+  // useEffect(()=>{
+  //   localStorage.setItem('loginInfo',JSON.stringify(state.loginInfo));
+  // }, [state.loginInfo])
 
   return (
       <AuthContext.Provider value={{...state,

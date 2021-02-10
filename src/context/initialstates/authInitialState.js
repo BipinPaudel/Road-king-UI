@@ -4,7 +4,6 @@ export default {
   auth: {
     isLoginOpen: true,
     loginInfo: getLoginInfo(),
-    isAlert: false,
     alerts:[],
   }
 }

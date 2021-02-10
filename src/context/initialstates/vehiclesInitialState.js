@@ -1,7 +1,8 @@
 export default {
   vehicles: {
     vehicles: [],
-    vehicles_error: false,
+    vehiclesError: false,
+    alerts:[]
   },
   vehicle: null,
   addVehicle: {

@@ -10,12 +10,12 @@ const RenderRoute = (route) => {
   document.title = route.title || 'Vehicle Tracker';
   if (route.needsAuth && !isAuthenticated()) {
     history.push('/auth/login');
-  } else {
-    return <Route
-        path={route.path} exact
-        render={(props) => <route.component {...props}/>}
-    />
   }
+  return <Route
+      path={route.path} exact
+      render={(props) => <route.component {...props}/>}
+  />
+
 }
 
 function App() {

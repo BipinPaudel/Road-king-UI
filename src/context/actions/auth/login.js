@@ -6,16 +6,16 @@ export const login = ({email, password}) => (dispatch) => {
     password, email
   })
       .then(res => {
-        localStorage.token = res.data.token;
+        localStorage.token = res.data.data.token;
         dispatch({
           type: LOGIN_USER,
-          payload: res.data
+          payload: res.data.data
         })
       })
       .catch(err => {
         dispatch({
           type: AUTH_FAILURE,
-          payload: err.response ? err.response.data: 'COULD NOT CONNECT'
+          payload: err.response ? err.response.data.messages: 'COULD NOT CONNECT'
         })
         console.log("e", err)
       })

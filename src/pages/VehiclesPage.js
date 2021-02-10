@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Sort, Filters, VehicleList} from '../components'
+import {VehicleList} from '../components'
+import VehiclesContainer from "../components/Vehicles";
 
 const VehiclesPage = () => {
   return <main>
     <Wrapper className="page">
       <div className="section-center products">
         <div>
-          <Sort/>
-          <VehicleList/>
+          {/*<Sort/>*/}
+          <VehiclesContainer/>
         </div>
       </div>
     </Wrapper>

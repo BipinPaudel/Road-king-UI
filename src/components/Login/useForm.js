@@ -7,7 +7,13 @@ import {login} from "../../context/actions/auth/login";
 export default () => {
   const [form, setForm] = useState({});
   const history = useHistory();
-  const {authDispatch, authState: {auth: {loginInfo}}} = useContext(GlobalContext);
+  const {authDispatch, authState: {auth: {alerts,loginInfo}}} = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (loginInfo){
+      history.push('/vehicles')
+    }
+  },[loginInfo])
 
   const onChange = (e, {name, value}) => {
     setForm({...form, [name]: value})
@@ -18,9 +24,9 @@ export default () => {
   }
 
   const loginFormValid =
-    !form.email?.length ||
-    !form.password?.length
+      !form.email?.length ||
+      !form.password?.length
 
-  return {form, onChange, onSubmit, loginFormValid}
+  return {form, onChange, onSubmit, loginFormValid, alerts}
 
 }

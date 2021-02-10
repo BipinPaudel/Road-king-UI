@@ -4,9 +4,11 @@ import {LOGO} from "../../constants";
 import './index.css';
 import {Button, Form, Grid, Header as SemanticHeader, Segment} from "semantic-ui-react";
 import {Header} from "../../components";
+import MyAlert from "../../components/Myalert";
 
-const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid}}) => {
-  console.log("from loginm ui")
+const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, alerts}}) => {
+  console.log("from loginm ui");
+  console.log(alerts);
   return (
       <div>
         <Header/>
@@ -18,9 +20,9 @@ const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid}}) => {
                    alt=""
               />
             </Link>
-            {/*{*/}
-            {/*  isAlert && <MyAlert type={'invalid'}/>*/}
-            {/*}*/}
+            {
+              alerts && alerts.length > 0 && <MyAlert alerts={alerts} type={'invalid'}/>
+            }
             <SemanticHeader className="login__container">
               Sign up
             </SemanticHeader>

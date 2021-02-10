@@ -1,24 +1,22 @@
 import React from "react";
 import {Message} from 'semantic-ui-react';
-import {useAuthContext} from "../context/auth_context";
 
-const MyAlert = ({type}) => {
-  const {isAlert, alerts, clearAlerts} = useAuthContext();
+const MyAlert = ({type, alerts}) => {
+
 
   setTimeout(()=>{
-    clearAlerts();
   }, 3000);
 
-  if (isAlert && alerts && alerts.length > 0) {
+  if (alerts && alerts.length > 0) {
     return (
         <div>
           <Message.List>
             {
               alerts.map(alert => {
                 return (
-                    <Message.Item key={alert}>
+                    <Message key={alert} negative>
                       <span className={type}>{alert}</span>
-                    </Message.Item>
+                    </Message>
                 )
               })
             }

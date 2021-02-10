@@ -7,30 +7,30 @@ import {
 } from '../../actions'
 
 const auth_reducer = (state, action) => {
-  if (action.type === SHOW_LOGIN){
-    return {...state, isLoginOpen: true}
-  }
-
-  if (action.type === SHOW_SIGNUP){
-    return {...state, isLoginOpen: false}
-  }
-
   if (action.type === LOGIN_USER){
+    console.log('login is success ',action.payload)
     return {
       ...state,
       auth:{
         ...state.auth,
         loginInfo: action.payload,
+        alerts:[]
       }
     }
   }
 
   if (action.type === AUTH_FAILURE){
-    return {...state, alerts: action.payload, isAlert: true}
+    console.log('inside reduer auth fail',action.payload)
+    return {...state,
+      auth:{
+        ...state.auth,
+        alerts:[action.payload]
+      }
+    }
   }
 
   if (action.type === CLEAR_ALERTS){
-    return {...state, alerts: null, isAlert: false}
+    return {...state, alerts: []}
   }
 
   if (action.type === SIGNUP_USER){

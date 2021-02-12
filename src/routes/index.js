@@ -1,9 +1,10 @@
 import {
   Login,
   Vehicles,
-  SingleVehicle,
-  Register
+  Register,
+  Maintenances,
 } from '../pages';
+import VehicleDetailContainer from "../components/VehicleDetail";
 
 const routes = [
   {
@@ -19,17 +20,24 @@ const routes = [
     needsAuth: false,
   },
   {
+    path: '/vehicles/:id',
+    component: VehicleDetailContainer,
+    title: 'Vehicle',
+    needsAuth: true
+  },
+  {
     path: '/vehicles',
     component: Vehicles,
     title: 'Vehicles',
     needsAuth: true
   },
   {
-    path: '/vehicles/:id',
-    component: SingleVehicle,
-    title: 'Contacts',
+    path: '/maintenances/vehicles/:id',
+    component: Maintenances,
+    title: 'Maintenances',
     needsAuth: true
   },
+
 ]
 
 export default routes;

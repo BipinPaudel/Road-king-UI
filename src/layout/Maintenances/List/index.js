@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from "react";
 import {Button, Container, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-
-const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehicle}) => {
+import {MdDelete} from 'react-icons/md';
+const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehicle,deleteMaintenance}) => {
   console.log('list of vehicle ',vehicle);
 
   return (
@@ -34,12 +34,15 @@ const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehi
                     <Table.Cell>{maintenance.km}</Table.Cell>
                     <Table.Cell>{maintenance.price}</Table.Cell>
                     <Table.Cell>{maintenance.description}</Table.Cell>
-                    <Table.Cell>Update</Table.Cell>
+                    <Table.Cell>
+                      <Button negative
+                        onClick={()=>deleteMaintenance(maintenance.id)}
+                      >Delete</Button>
+                    </Table.Cell>
                   </Table.Row>
               )
             })}
           </Table.Body>
-
         </Table>
       </div>
   )

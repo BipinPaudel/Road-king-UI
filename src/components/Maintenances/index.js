@@ -7,6 +7,7 @@ import getMaintenances from "../../context/actions/maintenances/getMaintenances"
 import getVehicleDetail from "../../context/actions/vehicles/getVehicleDetail";
 import AddMaintenanceContainer from "./Add";
 import {Button, Container, Modal} from "semantic-ui-react";
+import deleteMaintenance from "../../context/actions/maintenances/deleteMaintenance";
 
 const MaintenancesContainer = () => {
   const {maintenanceState, maintenanceDispatch} = useContext(GlobalContext);
@@ -25,7 +26,12 @@ const MaintenancesContainer = () => {
     }
   }, []);
 
-  console.log('from maintenance container', vehicle)
+  const deleteMaintenanceItem = (id) => {
+    if (window.confirm('Are you sure you want to delete this data?')){
+      console.log('this is my delete maintenance id',id);
+      deleteMaintenance(id)(maintenanceDispatch);
+    }
+  }
 
   return (
       <div>
@@ -35,7 +41,7 @@ const MaintenancesContainer = () => {
 
           <AddMaintenanceContainer vehicle={vehicle}/>
 
-          <MaintenanceListView maintenances={maintenances} vehicle={vehicle}/>
+          <MaintenanceListView maintenances={maintenances} vehicle={vehicle} deleteMaintenance={deleteMaintenanceItem}/>
         </Container>
       </div>
 

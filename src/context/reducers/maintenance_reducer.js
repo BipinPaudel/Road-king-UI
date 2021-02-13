@@ -1,4 +1,9 @@
-import {ADD_MAINTENANCE_SUCCESS, GET_MAINTENANCES_ERROR, GET_MAINTENANCES_SUCCESS} from "../../actions";
+import {
+  ADD_MAINTENANCE_SUCCESS, DELETE_MAINTENANCE_ERROR,
+  DELETE_MAINTENANCE_SUCCESS,
+  GET_MAINTENANCES_ERROR,
+  GET_MAINTENANCES_SUCCESS
+} from "../../actions";
 
 const maintenance_reducer = (state, action) => {
   if (action.type === GET_MAINTENANCES_ERROR){
@@ -34,6 +39,23 @@ const maintenance_reducer = (state, action) => {
         error: null,
         maintenance: action.payload,
       }
+    }
+  }
+
+  if (action.type===DELETE_MAINTENANCE_SUCCESS){
+    return {
+      ...state,
+      maintenances: {
+        ...state.maintenances,
+        maintenances: state.maintenances.maintenances
+            .filter(m => m.id !== action.payload)
+      }
+    }
+  }
+
+  if (action.type===DELETE_MAINTENANCE_ERROR){
+    return {
+      ...state
     }
   }
 }

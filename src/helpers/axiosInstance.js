@@ -25,10 +25,12 @@ export default (history = null) => {
         if (error.response.status === 403 || error.response.status === 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("loginInfo")
-          if (history){
-            history.push('/auth/login');
-          } else {
-            window.location = '/auth/login';
+          if (!window.location.href.includes('auth/login')){
+            if (history){
+              history.push('/auth/login');
+            } else {
+              window.location = '/auth/login';
+            }
           }
         } else {
           return new Promise((resolve, reject) => {

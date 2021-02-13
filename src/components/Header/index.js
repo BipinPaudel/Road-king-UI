@@ -6,7 +6,7 @@ import {LOGO} from '../../constants';
 const Header = () => {
   return <Menu secondary pointing>
     <Image src={LOGO} width={90}/>
-    <Menu.Item as={Link} to='/' style={{fontSize:24}}>Vehicle Tracker</Menu.Item>
+    <Menu.Item as={Link} to='/vehicles' style={{fontSize:24}}>Vehicle Tracker</Menu.Item>
   </Menu>
 }
 

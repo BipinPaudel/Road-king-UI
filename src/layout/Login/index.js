@@ -7,8 +7,6 @@ import {Header} from "../../components";
 import MyAlert from "../../components/Myalert";
 
 const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, alerts}}) => {
-  console.log("from loginm ui");
-  console.log(alerts);
   return (
       <div>
         <Header/>

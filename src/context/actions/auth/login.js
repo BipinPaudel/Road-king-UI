@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {AUTH_FAILURE, LOGIN_USER} from "../../../actions";
+import {AUTH_FAILURE, LOGIN_USER} from "../../../constants/actions";
 
 export const login = ({email, password}) => async (dispatch) => {
   try {

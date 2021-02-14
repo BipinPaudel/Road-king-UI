@@ -1,8 +1,8 @@
 import {
   GET_VEHICLES_BEGIN,
   GET_VEHICLES_SUCCESS,
-  GET_VEHICLES_ERROR, GET_SINGLE_VEHICLE_BEGIN, GET_SINGLE_VEHICLE_SUCCESS
-} from '../../actions';
+  GET_VEHICLES_ERROR, GET_SINGLE_VEHICLE_BEGIN, GET_SINGLE_VEHICLE_SUCCESS, ADD_VEHICLES_SUCCESS
+} from '../../constants/actions';
 
 const vehicle_reducer = (state, action) => {
   if (action.type === GET_VEHICLES_ERROR){
@@ -36,6 +36,15 @@ const vehicle_reducer = (state, action) => {
     return {
       ...state,
       vehicle: action.payload
+    }
+  }
+  if (action.type === ADD_VEHICLES_SUCCESS){
+    return {
+      ...state,
+      addVehicle:{
+        ...state.addVehicle,
+
+      }
     }
   }
 

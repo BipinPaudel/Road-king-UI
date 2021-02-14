@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {ADD_MAINTENANCE_BEGIN, ADD_MAINTENANCE_ERROR, ADD_MAINTENANCE_SUCCESS} from "../../../actions";
+import {ADD_MAINTENANCE_BEGIN, ADD_MAINTENANCE_ERROR, ADD_MAINTENANCE_SUCCESS} from "../../../constants/actions";
 
 export default ({km, date, price, vehicle_id, description}) => async (dispatch) => {
   try {

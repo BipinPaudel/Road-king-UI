@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {DELETE_MAINTENANCE_ERROR, DELETE_MAINTENANCE_SUCCESS} from "../../../actions";
+import {DELETE_MAINTENANCE_ERROR, DELETE_MAINTENANCE_SUCCESS} from "../../../constants/actions";
 
 export default (id) => async (dispatch) => {
   try {

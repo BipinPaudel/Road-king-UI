@@ -3,8 +3,9 @@ import {
   Vehicles,
   Register,
   Maintenances,
+  SingleVehicle,
+  CreateVehicle
 } from '../pages';
-import VehicleDetailContainer from "../components/VehicleDetail";
 
 const routes = [
   {
@@ -20,8 +21,15 @@ const routes = [
     needsAuth: false,
   },
   {
+    path: '/vehicles/create',
+    component: CreateVehicle,
+    title: 'Create Vehicle',
+    needsAuth: true
+  },
+
+  {
     path: '/vehicles/:id',
-    component: VehicleDetailContainer,
+    component: SingleVehicle,
     title: 'Vehicle',
     needsAuth: true
   },

@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {GET_SINGLE_VEHICLE_BEGIN, GET_SINGLE_VEHICLE_ERROR, GET_SINGLE_VEHICLE_SUCCESS} from "../../../actions";
+import {GET_SINGLE_VEHICLE_BEGIN, GET_SINGLE_VEHICLE_ERROR, GET_SINGLE_VEHICLE_SUCCESS} from "../../../constants/actions";
 
 export default (history, id) => async (dispatch) => {
   dispatch({type:GET_SINGLE_VEHICLE_BEGIN})
@@ -11,7 +11,7 @@ export default (history, id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_VEHICLE_ERROR,
-      payload: error.response.data
+      payload: error.response? error.response.data : "COULD NOT CONNECT"
     })
   }
 }

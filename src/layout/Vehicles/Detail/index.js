@@ -26,7 +26,7 @@ const VehicleDetailView = ({vehicle}) => {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-          )}s
+          )}
 
           {
             vehicle && (
@@ -68,9 +68,11 @@ const VehicleDetailView = ({vehicle}) => {
                       </div>
                       <div className="row">
 
+                        <Link to="/vehicles/create" className="link">
                           <Button basic color='red'>
                             Add another vehicle
                           </Button>
+                        </Link>
 
                         <Link to={`/maintenances/vehicles/${vehicle.id}`} className="link">
                           <Button basic color='red'>

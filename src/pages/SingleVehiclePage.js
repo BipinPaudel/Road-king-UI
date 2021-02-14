@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+import VehicleDetailContainer from "../components/Vehicle/VehicleDetail";
 
 const SingleVehiclePage = () => {
-  return <h1>Single Vehicle Page</h1>
+  return <VehicleDetailContainer/>
 }
 
 export default SingleVehiclePage;

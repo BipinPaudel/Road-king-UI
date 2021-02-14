@@ -1,7 +1,7 @@
 import {
   LOAD_VEHICLES,
   FILTER_VEHICLES, UPDATE_FILTERS
-} from '../../actions'
+} from '../../constants/actions'
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_VEHICLES){

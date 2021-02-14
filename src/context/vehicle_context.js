@@ -5,7 +5,7 @@ import {
   GET_VEHICLES_BEGIN,
   GET_VEHICLES_SUCCESS,
   GET_VEHICLES_ERROR
-} from '../actions';
+} from '../constants/actions';
 
 const initialState = {
   vehicles: [],

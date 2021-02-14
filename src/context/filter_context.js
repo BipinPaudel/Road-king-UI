@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useReducer } from 'react'
 import reducer from './reducers/filter_reducer'
-import {FILTER_VEHICLES, LOAD_VEHICLES, UPDATE_FILTERS} from "../actions";
+import {FILTER_VEHICLES, LOAD_VEHICLES, UPDATE_FILTERS} from "../constants/actions";
 
 const initialState = {
   filtered_vehicles: [],

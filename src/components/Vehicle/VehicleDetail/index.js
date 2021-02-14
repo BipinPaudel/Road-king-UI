@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from "react";
-import VehicleDetailView from "../../layout/Vehicles/Detail";
-import getVehicleDetail from "../../context/actions/vehicles/getVehicleDetail";
-import {GlobalContext} from "../../context/Provider";
+import VehicleDetailView from "../../../layout/Vehicles/Detail";
+import getVehicleDetail from "../../../context/actions/vehicles/getVehicleDetail";
+import {GlobalContext} from "../../../context/Provider";
 import {useHistory, useParams} from "react-router-dom";
-import {Header} from "../index";
+import {Header} from "../../index";
 
 const VehicleDetailContainer = () => {
   const {vehiclesState, vehiclesDispatch} = useContext(GlobalContext);

@@ -4,7 +4,7 @@ import {
   LOGIN_USER,
   SHOW_LOGIN,
   SHOW_SIGNUP, SIGNUP_USER
-} from '../../actions'
+} from '../../constants/actions'
 
 const auth_reducer = (state, action) => {
   if (action.type === LOGIN_USER){

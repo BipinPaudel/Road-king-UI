@@ -9,7 +9,7 @@ import {
   SHOW_SIGNUP,
   LOGIN_USER,
   SIGNUP_USER, AUTH_FAILURE, CLEAR_ALERTS,
-} from '../actions';
+} from '../constants/actions';
 
 const AuthContext = React.createContext()
 

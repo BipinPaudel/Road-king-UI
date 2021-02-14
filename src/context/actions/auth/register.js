@@ -1,4 +1,4 @@
-import {AUTH_FAILURE, SIGNUP_USER} from "../../../actions";
+import {AUTH_FAILURE, SIGNUP_USER} from "../../../constants/actions";
 import axiosInstance from "../../../helpers/axiosInstance";
 
 export const register = ({

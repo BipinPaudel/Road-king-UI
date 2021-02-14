@@ -1,6 +1,6 @@
 import React,  {useContext, useEffect,useState}  from 'react'
 import {Button, Container, Header as SemanticHeader, Modal} from "semantic-ui-react";
-import MaintenanceAddView from "../../../layout/Vehicles/Add";
+import MaintenanceAddView from "../../../layout/Maintenances/Add";
 import createMaintenance from "../../../context/actions/maintenances/createMaintenance";
 import {GlobalContext} from "../../../context/Provider";
 

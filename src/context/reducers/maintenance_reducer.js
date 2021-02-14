@@ -3,7 +3,7 @@ import {
   DELETE_MAINTENANCE_SUCCESS,
   GET_MAINTENANCES_ERROR,
   GET_MAINTENANCES_SUCCESS
-} from "../../actions";
+} from "../../constants/actions";
 
 const maintenance_reducer = (state, action) => {
   if (action.type === GET_MAINTENANCES_ERROR){

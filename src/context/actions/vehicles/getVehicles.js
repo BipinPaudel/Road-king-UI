@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {GET_VEHICLES_ERROR, GET_VEHICLES_SUCCESS} from "../../../actions";
+import {GET_VEHICLES_ERROR, GET_VEHICLES_SUCCESS} from "../../../constants/actions";
 
 export default (history) => async (dispatch) => {
   try {

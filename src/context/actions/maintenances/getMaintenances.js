@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {GET_MAINTENANCES_ERROR, GET_MAINTENANCES_SUCCESS} from "../../../actions";
+import {GET_MAINTENANCES_ERROR, GET_MAINTENANCES_SUCCESS} from "../../../constants/actions";
 
 export default (history,id) => async (dispatch) => {
   try {

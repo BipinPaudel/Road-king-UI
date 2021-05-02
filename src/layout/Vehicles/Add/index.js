@@ -12,14 +12,13 @@ import {
 import './index.css';
 import {vehicleYearList} from "../../../utils/vehicleUtils";
 
-const CreateVehicle = ({onChange, onImageChange, tempFile,onSubmit,formInvalid}) => {
+const CreateVehicle = ({onChange, onImageChange, tempFile,onSubmit,formInvalid, loading}) => {
   const imagePickRef = useRef(null);
   const chooseImage = () => {
     if (imagePickRef.current) {
       imagePickRef.current.click();
     }
   }
-  console.log(vehicleYearList());
 
   return (
       <Grid centered>
@@ -110,6 +109,7 @@ const CreateVehicle = ({onChange, onImageChange, tempFile,onSubmit,formInvalid})
                     />
                 </Form.Group>
                 <Button
+                    loading={loading}
                     disabled={formInvalid}
                     primary type="submit"
                     onClick={onSubmit}>

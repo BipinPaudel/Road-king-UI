@@ -9,5 +9,9 @@ export default {
     loading: false,
     error: null,
     vehicle: null,
+  },
+  deleteVehicle:{
+    loading: false,
+    error: null
   }
 }

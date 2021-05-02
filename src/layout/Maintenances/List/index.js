@@ -1,7 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {Button, Container, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-import {MdDelete} from 'react-icons/md';
 const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehicle,deleteMaintenance}) => {
   console.log('list of vehicle ',vehicle);
 

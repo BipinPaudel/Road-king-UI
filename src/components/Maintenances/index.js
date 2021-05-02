@@ -28,7 +28,6 @@ const MaintenancesContainer = () => {
 
   const deleteMaintenanceItem = (id) => {
     if (window.confirm('Are you sure you want to delete this data?')){
-      console.log('this is my delete maintenance id',id);
       deleteMaintenance(id)(maintenanceDispatch);
     }
   }

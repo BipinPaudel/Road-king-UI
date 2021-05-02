@@ -21,7 +21,6 @@ const AddMaintenanceContainer = ({vehicle}) => {
 
   const onSubmit = () => {
     form.vehicle_id = vehicle.id
-    console.log('this is vehicle id in service  1',vehicle.id)
     createMaintenance(form)(maintenanceDispatch)
     setMaintenanceAddOpen(false);
   }

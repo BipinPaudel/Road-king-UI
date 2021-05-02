@@ -2,7 +2,7 @@ import {Button, Container, Grid, Image} from "semantic-ui-react";
 import {extractImagesFromVehicle} from "../../../utils/vehicleUtils";
 import "./index.css";
 import {Link} from "react-router-dom";
-const VehicleDetailView = ({vehicle}) => {
+const VehicleDetailView = ({vehicle, deleteVehicle}) => {
   return (
       <div>
         <Container>
@@ -77,6 +77,12 @@ const VehicleDetailView = ({vehicle}) => {
                         <Link to={`/maintenances/vehicles/${vehicle.id}`} className="link">
                           <Button basic color='red'>
                             Maintenance
+                          </Button>
+                        </Link>
+
+                        <Link to={`#`} className="link">
+                          <Button basic color='red' onClick={() => deleteVehicle(vehicle.id)}>
+                            Delete Vehicle
                           </Button>
                         </Link>
                       </div>

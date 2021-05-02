@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import {VehicleList} from '../components'
 import VehiclesContainer from "../components/Vehicle/Vehicles";
 
 const VehiclesPage = () => {

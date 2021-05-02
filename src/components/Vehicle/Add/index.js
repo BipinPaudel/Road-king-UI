@@ -15,11 +15,14 @@ const CreateVehicleContainer = () => {
   }
 
   const history = useHistory();
-  const {addVehicle} = vehiclesState;
+  const {addVehicle: {loading, vehicle}} = vehiclesState;
 
-  // useEffect(()=>{
-  //   history.push('/vehicles')
-  // },[addVehicle])
+  useEffect(()=>{
+    console.log('this is loading '+loading)
+    if (vehicle){
+      history.push('/vehicles')
+    }
+  },[vehicle])
 
   const formInvalid =
       !form.title?.length ||
@@ -46,6 +49,7 @@ const CreateVehicleContainer = () => {
       <div>
         <Header/>
         <CreateVehicle
+            loading={loading}
             onChange={onChange}
             formInvalid={formInvalid}
             onImageChange={onImageChange}

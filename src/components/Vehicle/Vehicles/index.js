@@ -15,9 +15,7 @@ const VehiclesContainer = () => {
   } = vehiclesState;
 
   useEffect(() => {
-    if (vehicles.length === 0) {
-      getVehicles(history)(vehiclesDispatch);
-    }
+    getVehicles(history)(vehiclesDispatch);
   }, [])
 
   return (

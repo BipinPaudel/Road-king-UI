@@ -9,8 +9,19 @@ export const extractImagesFromVehicle = ({images}) => {
 export const vehicleYearList = () => {
   let max = new Date().getFullYear()
   let years = []
-  for(let i= max; i> max-20; i--){
-    years.push({text: i.toString(), value:i.toString(), key:i.toString()})
+  for (let i = max; i > max - 20; i--) {
+    years.push({text: i.toString(), value: i.toString(), key: i.toString()})
   }
   return years;
+}
+
+export const categoriesToOptions = (categories) => {
+  return categories.map(
+      cat => {
+        return {
+          text: cat.title,
+          value: cat.id,
+          key: cat.id.toString()
+        }
+      });
 }

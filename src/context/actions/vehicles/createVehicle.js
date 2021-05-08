@@ -14,7 +14,7 @@ export default ({
     images
                 }) => dispatch => {
   const saveToBackend = async (url = null) => {
-    console.log('save to backend')
+    console.log('save to backend '+category_id)
     let images = url? [url]: []
     try {
       const res = await axiosInstance().post('/api/v1/vehicles',{

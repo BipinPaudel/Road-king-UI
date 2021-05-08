@@ -10,9 +10,9 @@ import {
   Image,
 } from "semantic-ui-react";
 import './index.css';
-import {vehicleYearList} from "../../../utils/vehicleUtils";
+import {categoriesToOptions, vehicleYearList} from "../../../utils/vehicleUtils";
 
-const CreateVehicle = ({onChange, onImageChange, tempFile,onSubmit,formInvalid, loading}) => {
+const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formInvalid, loading, categories}}) => {
   const imagePickRef = useRef(null);
   const chooseImage = () => {
     if (imagePickRef.current) {
@@ -58,7 +58,7 @@ const CreateVehicle = ({onChange, onImageChange, tempFile,onSubmit,formInvalid, 
                       placeholder='Category'
                       name='category_id'
                       control={Select}
-                      options={vehicleYearList()}
+                      options={categoriesToOptions(categories)}
                       onChange={onChange}
                   />
 

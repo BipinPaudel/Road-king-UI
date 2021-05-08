@@ -6,7 +6,7 @@ import {useHistory, useParams} from "react-router-dom";
 import getMaintenances from "../../context/actions/maintenances/getMaintenances";
 import getVehicleDetail from "../../context/actions/vehicles/getVehicleDetail";
 import AddMaintenanceContainer from "./Add";
-import {Button, Container, Modal} from "semantic-ui-react";
+import { Container} from "semantic-ui-react";
 import deleteMaintenance from "../../context/actions/maintenances/deleteMaintenance";
 
 const MaintenancesContainer = () => {

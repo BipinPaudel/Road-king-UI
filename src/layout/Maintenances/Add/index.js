@@ -6,7 +6,8 @@ import {
   Button,
 } from "semantic-ui-react";
 
-const MaintenanceAddView = ({onChange,formInvalid, onSubmit}) => {
+const MaintenanceAddView = ({onChange,formInvalid, onSubmit, maintenance}) => {
+  console.log('this is form invalid '+formInvalid)
   return (
       <Grid centered>
         <Grid.Column className="form-column">
@@ -20,6 +21,8 @@ const MaintenanceAddView = ({onChange,formInvalid, onSubmit}) => {
                       placeholder='Description'
                       name='description'
                       onChange={onChange}
+                      defaultValue={maintenance?.description}
+
                   />
                 </Form.Group>
 
@@ -30,6 +33,7 @@ const MaintenanceAddView = ({onChange,formInvalid, onSubmit}) => {
                       placeholder='Km driven'
                       name='km'
                       type='number'
+                      defaultValue={maintenance?.km}
                       onChange={onChange}
                   />
                 </Form.Group>
@@ -41,6 +45,7 @@ const MaintenanceAddView = ({onChange,formInvalid, onSubmit}) => {
                       placeholder='Maintenance Date'
                       name='date'
                       type='date'
+                      defaultValue={maintenance?.date}
                       onChange={onChange}
                   />
                 </Form.Group>
@@ -52,6 +57,7 @@ const MaintenanceAddView = ({onChange,formInvalid, onSubmit}) => {
                       placeholder='Maintenance Cost'
                       name='price'
                       type='number'
+                      defaultValue={maintenance?.price}
                       onChange={onChange}
                   />
                 </Form.Group>

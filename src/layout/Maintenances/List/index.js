@@ -1,9 +1,32 @@
-import React, {useContext, useEffect} from "react";
-import {Button, Container, Table} from "semantic-ui-react";
+import React, {useContext, useState} from "react";
+import {Button, Modal, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehicle,deleteMaintenance}) => {
-  console.log('list of vehicle ',vehicle);
+import MaintenanceAddView from "../Add";
+import {GlobalContext} from "../../../context/Provider";
+import updateMaintenance from "../../../context/actions/maintenances/updateMaintenance";
 
+const MaintenanceListView = ({maintenances: {maintenances, maintenancesError}, vehicle, deleteMaintenance}) => {
+
+  const [maintenanceUpdateOpen, setMaintenanceUpdateOpen] = React.useState(false);
+  const [form, setForm] = useState({})
+  const {maintenanceDispatch} = useContext(GlobalContext);
+
+
+  const onChange = (e, {name, value}) => {
+    e.preventDefault();
+    setForm({...form, [name]: value})
+  }
+
+  const formInvalid = !form.description?.length ||
+      !form.km ||
+      !form.date?.length ||
+      !form.price;
+
+  const onSubmit = () => {
+    form.vehicle_id = vehicle.id
+    updateMaintenance(form)(maintenanceDispatch)
+    setMaintenanceUpdateOpen(false);
+  }
   return (
       <div>
         {
@@ -26,7 +49,7 @@ const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehi
           </Table.Header>
 
           <Table.Body>
-            {maintenances.length>0 && maintenances.map(maintenance => {
+            {maintenances?.length > 0 && maintenances.map(maintenance => {
               return (
                   <Table.Row key={maintenance.id}>
                     <Table.Cell>{maintenance.date}</Table.Cell>
@@ -35,8 +58,27 @@ const MaintenanceListView = ({maintenances:{maintenances,maintenancesError},vehi
                     <Table.Cell>{maintenance.description}</Table.Cell>
                     <Table.Cell>
                       <Button negative
-                        onClick={()=>deleteMaintenance(maintenance.id)}
-                      >Delete</Button>
+                              onClick={() => deleteMaintenance(maintenance.id)}>
+                        Delete
+                      </Button>
+
+                      <Modal
+                          basic
+                          onClose={() => setMaintenanceUpdateOpen(false)}
+                          onOpen={() => setMaintenanceUpdateOpen(true)}
+                          open={maintenanceUpdateOpen}
+                          size='small'
+                          trigger={<Button onClick={() => setForm(maintenance)}>Edit</Button>}>
+                        <Modal.Header>Update Maintenance</Modal.Header>
+                        <Modal.Content>
+                          <MaintenanceAddView
+                              onChange={onChange}
+                              onSubmit={onSubmit}
+                              formInvalid={formInvalid}
+                              maintenance={maintenance}
+                          />
+                        </Modal.Content>
+                      </Modal>
                     </Table.Cell>
                   </Table.Row>
               )

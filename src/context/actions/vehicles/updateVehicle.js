@@ -2,6 +2,8 @@ import axiosInstance from "../../../helpers/axiosInstance";
 import {UPDATE_VEHICLES_BEGIN, UPDATE_VEHICLES_SUCCESS} from "../../../constants/actions";
 import {storage} from "../../../helpers/firebase";
 import {FIREBASE_IMAGE_REF} from "../../../constants/firebase";
+import {imageNameFromURL} from "../../../utils/vehicleUtils";
+import {getEpochTime} from "../../../utils/helperUtils";
 
 export default ({
                   title,
@@ -12,10 +14,42 @@ export default ({
                   km_driven,
                   description,
                   images,
-                },id, history) => dispatch => {
-  const saveToBackend = async (url = null) => {
-    console.log('save to backend ' + category_id)
-    let images = url ? [url] : []
+                }, id, oldImages,history) => dispatch => {
+
+  const saveImage = (images) => {
+    if (images && images.length > 0) {
+      const imageName = `${getEpochTime()}_${images[0].name}`
+      storage
+          .ref(`${FIREBASE_IMAGE_REF}/${imageName}`)
+          .put(images[0])
+          .on("state_changed",
+              (snapshot) => {
+              },
+              async (error) => {
+              },
+              async () => {
+                const url = await storage.ref(FIREBASE_IMAGE_REF)
+                    .child(imageName)
+                    .getDownloadURL();
+                saveToBackend(url ? [url] : []);
+              });
+    }
+  }
+
+  const deleteOldImage = (images) => {
+    images.forEach((image) => {
+      let imageName = imageNameFromURL(image);
+      let deleteRef = storage.ref(`${FIREBASE_IMAGE_REF}/${imageName}`)
+      deleteRef.delete().then(()=>{
+        console.log('sucessfully deleted')
+      }).catch((error) => {
+        console.log('image firebase delete error '+error)
+      })
+
+    })
+  }
+
+  const saveToBackend = async (images = null) => {
     try {
       const res = await axiosInstance().put(`/api/v1/vehicles/${id}`, {
         title,
@@ -38,24 +72,13 @@ export default ({
     }
   }
   dispatch({type: UPDATE_VEHICLES_BEGIN})
-  saveToBackend();
 
-  // if (images && images.length > 0) {
-  //   storage
-  //       .ref(`${FIREBASE_IMAGE_REF}/${images[0].name}`)
-  //       .put(images[0])
-  //       .on("state_changed",
-  //           (snapshot) => {
-  //           },
-  //           async (error) => {
-  //           },
-  //           async () => {
-  //             const url = await storage.ref(FIREBASE_IMAGE_REF)
-  //                 .child(images[0].name)
-  //                 .getDownloadURL();
-  //             saveToBackend(url);
-  //           });
-  // } else {
-  //   saveToBackend()
-  // }
+  if (typeof (images) === "string") {
+    saveToBackend(images)
+  } else {
+    deleteOldImage(JSON.parse(oldImages))
+    saveImage(images)
+  }
+
 }
+

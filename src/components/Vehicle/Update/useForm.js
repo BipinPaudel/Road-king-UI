@@ -42,9 +42,19 @@ export default () => {
       !form.price ||
       !form?.description?.length
 
-  const onSubmit = () => {
-    updateVehicle(form, id, history)(vehiclesDispatch);
+  const onImageChange = (e) => {
+    e.persist();
+    const fileUrl = e.target.files[0];
+    setForm({...form,images:[fileUrl]});
+    if (fileUrl)
+      setTempFile(URL.createObjectURL(fileUrl));
   }
 
-  return {loading, onChange, formInvalid, onSubmit, form, categories, vehicle, isUpdate:true, setForm}
+  const onSubmit = () => {
+    updateVehicle(form, id, vehicle.images ,history)(vehiclesDispatch);
+  }
+
+
+
+  return {loading, onChange, formInvalid, onSubmit, form, categories, vehicle, isUpdate:true, tempFile, onImageChange}
 }

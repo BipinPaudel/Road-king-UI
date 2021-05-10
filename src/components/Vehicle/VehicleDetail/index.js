@@ -14,7 +14,7 @@ const VehicleDetailContainer = () => {
 
   const deleteSingleVehicle = (id) => {
     if (window.confirm('Are you sure you want to delete this data?')){
-      deleteVehicle(id)(vehiclesDispatch);
+      deleteVehicle(id, vehicle.images, history)(vehiclesDispatch);
     }
   }
   useEffect(() => {
@@ -23,11 +23,6 @@ const VehicleDetailContainer = () => {
     }
   }, []);
 
-  useEffect(()=>{
-    if (deleteVehicleLoading){
-      history.push('/vehicles')
-    }
-  }, [deleteVehicleLoading])
   return (
       <div>
         <Header/>

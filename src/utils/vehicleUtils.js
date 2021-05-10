@@ -1,8 +1,10 @@
+import {FIREBASE_IMAGE_REF} from "../constants/firebase";
+
 export const extractImagesFromVehicle = ({images}) => {
   if (images && JSON.parse(images).length > 0) {
     return JSON.parse(images)
   } else {
-    return ["https://images.unsplash.com/photo-1570733577524-3a047079e80d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWVyY2VkZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"]
+    return ["https://firebasestorage.googleapis.com/v0/b/vehicle-tracker-97ecf.appspot.com/o/vehicleimages%2Fno-image-available-sign-internet-600w-261719003.jpg?alt=media&token=67cb8c6e-93e7-4a07-b56c-69069588bd72"]
   }
 }
 
@@ -24,4 +26,10 @@ export const categoriesToOptions = (categories, vehicle) => {
           key: cat.id.toString(),
         }
       });
+}
+
+export const imageNameFromURL = (image) => {
+  let initialIndex = image.lastIndexOf(FIREBASE_IMAGE_REF)
+  let finalIndex = image.lastIndexOf('?')
+  return image.substring(initialIndex + FIREBASE_IMAGE_REF.length+3, finalIndex)
 }

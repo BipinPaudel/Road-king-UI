@@ -2,6 +2,7 @@ import axiosInstance from "../../../helpers/axiosInstance";
 import {ADD_VEHICLES_BEGIN, ADD_VEHICLES_SUCCESS} from "../../../constants/actions";
 import {storage} from "../../../helpers/firebase";
 import {FIREBASE_IMAGE_REF} from "../../../constants/firebase";
+import {getEpochTime} from "../../../utils/helperUtils";
 
 export default ({
     title,
@@ -39,15 +40,16 @@ export default ({
   }
   dispatch({type:ADD_VEHICLES_BEGIN})
   if (images && images.length > 0){
+    const imageName = `${getEpochTime()}_${images[0].name}`
     storage
-        .ref(`${FIREBASE_IMAGE_REF}/${images[0].name}`)
+        .ref(`${FIREBASE_IMAGE_REF}/${imageName}`)
         .put(images[0])
         .on("state_changed",
             (snapshot) => {},
             async (error) => {},
             async () => {
               const url = await storage.ref(FIREBASE_IMAGE_REF)
-                  .child(images[0].name)
+                  .child(imageName)
                   .getDownloadURL();
               saveToBackend(url);
             });

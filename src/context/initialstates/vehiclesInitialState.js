@@ -13,5 +13,10 @@ export default {
   deleteVehicle:{
     loading: false,
     error: null
+  },
+  updateVehicle: {
+    vehicle: null,
+    loading: false,
+    alerts:[]
   }
 }

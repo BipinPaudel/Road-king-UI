@@ -15,13 +15,13 @@ export const vehicleYearList = () => {
   return years;
 }
 
-export const categoriesToOptions = (categories) => {
+export const categoriesToOptions = (categories, vehicle) => {
   return categories.map(
       cat => {
         return {
           text: cat.title,
           value: cat.id,
-          key: cat.id.toString()
+          key: cat.id.toString(),
         }
       });
 }

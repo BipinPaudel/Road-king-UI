@@ -6,7 +6,7 @@ import {
   GET_SINGLE_VEHICLE_SUCCESS,
   ADD_VEHICLES_SUCCESS,
   ADD_VEHICLES_BEGIN,
-  DELETE_VEHICLE_SUCCESS, DELETE_VEHICLE_BEGIN
+  DELETE_VEHICLE_SUCCESS, DELETE_VEHICLE_BEGIN, UPDATE_VEHICLES_BEGIN, UPDATE_VEHICLES_SUCCESS
 } from '../../constants/actions';
 
 const vehicle_reducer = (state, action) => {
@@ -86,6 +86,30 @@ const vehicle_reducer = (state, action) => {
       deleteVehicle:{
         ...state.deleteVehicle,
         loading: false
+      }
+    }
+  }
+
+  if (action.type === UPDATE_VEHICLES_BEGIN){
+    return {
+      ...state,
+      updateVehicle:{
+        ...state.updateVehicle,
+        vehicle: null,
+        loading: true,
+        alerts: [],
+      }
+    }
+  }
+
+  if (action.type === UPDATE_VEHICLES_SUCCESS){
+    return {
+      ...state,
+      updateVehicle:{
+        ...state.updateVehicle,
+        loading: false,
+        vehicle: action.payload,
+        alerts: [],
       }
     }
   }

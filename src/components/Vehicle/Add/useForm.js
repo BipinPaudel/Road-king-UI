@@ -17,13 +17,6 @@ export default () => {
   const {addVehicle: {loading, vehicle}} = vehiclesState;
   const {listCategories: {categories}} = categoryState;
 
-  useEffect(()=>{
-    console.log('this is loading '+loading)
-    if (vehicle){
-      history.push('/vehicles')
-    }
-  },[vehicle])
-
   useEffect( ()=> {
     getCategories(history)(categoryDispatch);
   },[])
@@ -44,8 +37,8 @@ export default () => {
   }
 
   const onSubmit = () => {
-    createVehicle(form)(vehiclesDispatch)
+    createVehicle(form, history)(vehiclesDispatch)
   }
 
-  return {loading, onChange, formInvalid, onImageChange, onSubmit, form, tempFile, categories}
+  return {loading, onChange, formInvalid, onImageChange, onSubmit, form, tempFile, categories, isCreate:true}
 }

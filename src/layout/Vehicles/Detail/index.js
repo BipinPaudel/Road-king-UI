@@ -80,6 +80,12 @@ const VehicleDetailView = ({vehicle, deleteVehicle}) => {
                           </Button>
                         </Link>
 
+                        <Link to={`/vehicles/update/${vehicle.id}`} className="link">
+                          <Button primary>
+                            Edit Vehicle
+                          </Button>
+                        </Link>
+
                         <Link to={`#`} className="link">
                           <Button basic color='red' onClick={() => deleteVehicle(vehicle.id)}>
                             Delete Vehicle

@@ -4,7 +4,7 @@ import {
   Register,
   Maintenances,
   SingleVehicle,
-  CreateVehicle
+  CreateVehicle, UpdateVehicle
 } from '../pages';
 
 const routes = [
@@ -26,7 +26,12 @@ const routes = [
     title: 'Create Vehicle',
     needsAuth: true
   },
-
+  {
+    path: '/vehicles/update/:id',
+    component: UpdateVehicle,
+    title: 'Update Vehicle',
+    needsAuth: true
+  },
   {
     path: '/vehicles/:id',
     component: SingleVehicle,

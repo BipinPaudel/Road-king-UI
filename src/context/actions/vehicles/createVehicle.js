@@ -12,7 +12,7 @@ export default ({
     km_driven,
     description,
     images
-                }) => dispatch => {
+                },history) => dispatch => {
   const saveToBackend = async (url = null) => {
     console.log('save to backend '+category_id)
     let images = url? [url]: []
@@ -31,6 +31,7 @@ export default ({
       const vehicle = res.data.data
       console.log('before calling add success reducer')
       dispatch({type:ADD_VEHICLES_SUCCESS, payload: vehicle})
+      history.push('/vehicles')
     } catch (err) {
       console.log('error here')
       console.log(err);

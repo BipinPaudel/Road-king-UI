@@ -12,7 +12,7 @@ import {
 import './index.css';
 import {categoriesToOptions, vehicleYearList} from "../../../utils/vehicleUtils";
 
-const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formInvalid, loading, categories}}) => {
+const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formInvalid, loading, categories, vehicle, isUpdate, isCreate}}) => {
   const imagePickRef = useRef(null);
   const chooseImage = () => {
     if (imagePickRef.current) {
@@ -20,7 +20,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
     }
   }
 
-  return (
+  return ( (  isCreate || (isUpdate && vehicle) )&&
       <Grid centered>
         <Grid.Column className="form-column">
           <SemanticHeader> Create Vehicle </SemanticHeader>
@@ -49,11 +49,14 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                     placeholder='Title'
                     name='title'
                     onChange={onChange}
+                    defaultValue={vehicle?.title}
                   />
                 </Form.Group>
                 <Form.Group widths='equal'>
                   <Form.Input
                       fluid
+                      selection
+                      defaultValue= {vehicle?.category_id}
                       label='Category'
                       placeholder='Category'
                       name='category_id'
@@ -64,12 +67,14 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
 
                   <Form.Input
                       fluid
+                      selection
+                      defaultValue = {vehicle?.make_year?.toString()}
                       label='Make year'
                       placeholder='Make year'
                       name='make_year'
                       control={Select}
-                      options={vehicleYearList()}
                       onChange={onChange}
+                      options={vehicleYearList()}
                   />
                 </Form.Group>
                 <Form.Group widths='equal'>
@@ -80,6 +85,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                       name='buy_date'
                       onChange={onChange}
                       type='date'
+                      defaultValue={vehicle?.buy_date}
                   />
                   <Form.Input
                       fluid
@@ -88,6 +94,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                       name='price'
                       type='number'
                       onChange={onChange}
+                      defaultValue={vehicle?.price}
                   />
                   <Form.Input
                       fluid
@@ -96,6 +103,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                       name='km_driven'
                       type='number'
                       onChange={onChange}
+                      defaultValue={vehicle?.km_driven}
                   />
                 </Form.Group>
                 <Form.Group widths='equal'>
@@ -106,6 +114,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                     name='description'
                     onChange={onChange}
                     type='text'
+                    defaultValue={vehicle?.description}
                     />
                 </Form.Group>
                 <Button

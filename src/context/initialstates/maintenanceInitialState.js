@@ -1,8 +1,7 @@
 export default {
   maintenances: {
     maintenances: [],
-    maintenancesError: false,
-    alerts:[]
+
   },
   maintenance: null,
   addMaintenance: {

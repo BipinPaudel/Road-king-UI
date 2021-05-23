@@ -8,7 +8,7 @@ export default (history = null) => {
   }
 
   const axiosInstance = axios.create({
-    // baseURL: baseURL,
+    baseURL: baseURL,
     headers,
   })
 

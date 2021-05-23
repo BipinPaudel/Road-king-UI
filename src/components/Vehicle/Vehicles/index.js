@@ -23,8 +23,8 @@ const VehiclesContainer = () => {
         <Header/>
         <div className={'vehicles___container'}>
           <Link to="/vehicles/create" className="link">
-            <Button basic color='red'>
-              Add another vehicle
+            <Button primary>
+              Add vehicle
             </Button>
           </Link>
           <VehiclesListUI state={vehiclesState}/>

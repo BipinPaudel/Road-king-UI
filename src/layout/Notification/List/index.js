@@ -7,6 +7,7 @@ const NotificationListView = ({vehicle, notification, deleteNotification}) => {
   return (
       <div>
         <Container>
+          <h1>Notification Setting</h1>
         {
           notification && notification.length === 0 && (
             <AddNotificationContainer vehicle={vehicle}/>

@@ -69,32 +69,25 @@ const VehicleDetailView = ({vehicle, deleteVehicle}) => {
                       <div className="row">
 
                         <Link to={`/maintenances/vehicles/${vehicle.id}`} className="link">
-                          <Button basic color='red'>
+                          <Button primary>
                             Maintenance
                           </Button>
                         </Link>
 
                         <Link to={`/vehicles/update/${vehicle.id}`} className="link">
                           <Button primary>
-                            Edit Vehicle
+                            Edit
                           </Button>
                         </Link>
 
                         <Link to={`#`} className="link">
-                          <Button basic color='red' onClick={() => deleteVehicle(vehicle.id)}>
-                            Delete Vehicle
+                          <Button negative onClick={() => deleteVehicle(vehicle.id)}>
+                            Delete
                           </Button>
                         </Link>
                       </div>
 
                     </Grid.Column>
-                  </Grid.Row>
-
-                  <Grid.Row>
-                    <h1>Notify me</h1>
-                  </Grid.Row>
-                  <Grid.Row>
-
                   </Grid.Row>
                 </Grid>
             )

@@ -13,7 +13,6 @@ const UpdateNotificationContainer = ({notification, vehicle}) => {
 
   const onChange = (e, {name, value}) => {
     e.preventDefault();
-    console.log('updated form '+ JSON.stringify(form) + " : : : : " + form['day'])
     setForm({...form, [name]: value})
   }
 
@@ -37,7 +36,6 @@ const UpdateNotificationContainer = ({notification, vehicle}) => {
 
   const onSubmit = () => {
     updateNotification(form)(notificationDispatch);
-    // setNotificationUpdateOpen(false);
   }
 
   return (
@@ -47,10 +45,9 @@ const UpdateNotificationContainer = ({notification, vehicle}) => {
         onOpen={() => setNotificationUpdateOpen(true)}
         open={notificationUpdateOpen}
         size='small'
-        trigger={<Button onClick={() => {
+        trigger={<Button primary onClick={() => {
           setForm(notification);
-          console.log('inside click '+!form.km?.length);
-        } }>Update Notification</Button>}
+        } }>Edit</Button>}
       >
         <Modal.Header>Notification</Modal.Header>
         <Modal.Content>

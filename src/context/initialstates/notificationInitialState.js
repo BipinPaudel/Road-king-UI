@@ -1,10 +1,13 @@
 export default {
-  notification: {
-    notification: [],
-    addNotification: {
-      loading: false,
-      error: null,
-      notification: null,
-    }
+  notifications: [],
+  addNotification: {
+    loading: false,
+    errors: [],
+    notification: null,
+  },
+  updateNotification: {
+    loading: false,
+    errors: [],
+    notification: null,
   }
 }

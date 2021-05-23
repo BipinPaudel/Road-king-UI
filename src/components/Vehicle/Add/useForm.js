@@ -3,6 +3,7 @@ import {GlobalContext} from "../../../context/Provider";
 import {useHistory} from "react-router-dom";
 import createVehicle from "../../../context/actions/vehicles/createVehicle";
 import getCategories from "../../../context/actions/categories/getCategories";
+import {CLEAR_ALERTS} from "../../../constants/actions";
 
 export default () => {
   const {vehiclesState, vehiclesDispatch, categoryState, categoryDispatch} = useContext(GlobalContext);
@@ -14,7 +15,7 @@ export default () => {
   }
 
   const history = useHistory();
-  const {addVehicle: {loading, vehicle}} = vehiclesState;
+  const {addVehicle: {loading, vehicle, errors}} = vehiclesState;
   const {listCategories: {categories}} = categoryState;
 
   useEffect( ()=> {
@@ -28,6 +29,14 @@ export default () => {
       !form.price?.length ||
       !form.description?.length
 
+  useEffect(()=> {
+    if (errors && errors.length > 0){
+      setTimeout(()=>{
+        vehiclesDispatch({type: CLEAR_ALERTS})
+      }, 3000)
+    }
+  }, [errors])
+
   const onImageChange = (e) => {
     e.persist();
     const fileUrl = e.target.files[0];
@@ -40,5 +49,5 @@ export default () => {
     createVehicle(form, history)(vehiclesDispatch)
   }
 
-  return {loading, onChange, formInvalid, onImageChange, onSubmit, form, tempFile, categories, isCreate:true}
+  return {loading, onChange, formInvalid, onImageChange, onSubmit, form, tempFile, categories, isCreate:true, errors}
 }

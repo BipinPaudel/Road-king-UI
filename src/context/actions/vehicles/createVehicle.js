@@ -1,8 +1,9 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {ADD_VEHICLES_BEGIN, ADD_VEHICLES_SUCCESS} from "../../../constants/actions";
+import {ADD_VEHICLES_BEGIN, ADD_VEHICLES_ERROR, ADD_VEHICLES_SUCCESS} from "../../../constants/actions";
 import {storage} from "../../../helpers/firebase";
 import {FIREBASE_IMAGE_REF} from "../../../constants/firebase";
 import {getEpochTime} from "../../../utils/helperUtils";
+import {imageNameFromURL} from "../../../utils/vehicleUtils";
 
 export default ({
     title,
@@ -14,6 +15,16 @@ export default ({
     description,
     images
                 },history) => dispatch => {
+
+  const deleteOldImage = (images) => {
+    images.forEach((image) => {
+      let imageName = imageNameFromURL(image);
+      let deleteRef = storage.ref(`${FIREBASE_IMAGE_REF}/${imageName}`)
+      deleteRef.delete().then(()=>{
+      })
+    })
+  }
+
   const saveToBackend = async (url = null) => {
     console.log('save to backend '+category_id)
     let images = url? [url]: []
@@ -28,14 +39,12 @@ export default ({
         description,
         images:images
       })
-      console.log(res);
       const vehicle = res.data.data
-      console.log('before calling add success reducer')
       dispatch({type:ADD_VEHICLES_SUCCESS, payload: vehicle})
       history.push('/vehicles')
     } catch (err) {
-      console.log('error here')
-      console.log(err);
+      dispatch({type: ADD_VEHICLES_ERROR, payload: err.response.data.errors})
+      deleteOldImage(images)
     }
   }
   dispatch({type:ADD_VEHICLES_BEGIN})

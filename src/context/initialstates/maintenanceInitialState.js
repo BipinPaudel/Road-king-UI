@@ -1,12 +1,16 @@
 export default {
   maintenances: {
     maintenances: [],
-
   },
   maintenance: null,
   addMaintenance: {
     loading: false,
-    error: null,
+    errors: [],
     maintenance: null,
+  },
+  updateMaintenance: {
+    loading: false,
+    errors: [],
+    maintenance: null
   }
 }

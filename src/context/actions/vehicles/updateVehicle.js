@@ -1,5 +1,5 @@
 import axiosInstance from "../../../helpers/axiosInstance";
-import {UPDATE_VEHICLES_BEGIN, UPDATE_VEHICLES_SUCCESS} from "../../../constants/actions";
+import {UPDATE_VEHICLES_BEGIN, UPDATE_VEHICLES_ERROR, UPDATE_VEHICLES_SUCCESS} from "../../../constants/actions";
 import {storage} from "../../../helpers/firebase";
 import {FIREBASE_IMAGE_REF} from "../../../constants/firebase";
 import {imageNameFromURL} from "../../../utils/vehicleUtils";
@@ -14,9 +14,9 @@ export default ({
                   km_driven,
                   description,
                   images,
-                }, id, oldImages,history) => dispatch => {
+                }, id, oldImages, history) => dispatch => {
 
-  const saveImage = (images) => {
+  const saveImage = (images, oldImages) => {
     if (images && images.length > 0) {
       const imageName = `${getEpochTime()}_${images[0].name}`
       storage
@@ -31,7 +31,7 @@ export default ({
                 const url = await storage.ref(FIREBASE_IMAGE_REF)
                     .child(imageName)
                     .getDownloadURL();
-                saveToBackend(url ? [url] : []);
+                saveToBackend(url ? [url] : [], oldImages);
               });
     }
   }
@@ -40,16 +40,12 @@ export default ({
     images.forEach((image) => {
       let imageName = imageNameFromURL(image);
       let deleteRef = storage.ref(`${FIREBASE_IMAGE_REF}/${imageName}`)
-      deleteRef.delete().then(()=>{
-        console.log('sucessfully deleted')
-      }).catch((error) => {
-        console.log('image firebase delete error '+error)
+      deleteRef.delete().then(() => {
       })
-
     })
   }
 
-  const saveToBackend = async (images = null) => {
+  const saveToBackend = async (images, oldImages) => {
     try {
       const res = await axiosInstance().put(`/api/v1/vehicles/${id}`, {
         title,
@@ -61,23 +57,23 @@ export default ({
         description,
         images: images
       })
-      console.log(res);
       const vehicle = res.data.data
-      console.log('before calling add success reducer')
       dispatch({type: UPDATE_VEHICLES_SUCCESS, payload: vehicle})
+      deleteOldImage(JSON.parse(oldImages))
       history.push(`/vehicles/${id}`)
     } catch (err) {
-      console.log('error here')
-      console.log(err);
+      dispatch({type: UPDATE_VEHICLES_ERROR, payload: err.response.data.errors})
+      if (typeof (images) !== 'string'){
+        deleteOldImage(images)
+      }
     }
   }
   dispatch({type: UPDATE_VEHICLES_BEGIN})
 
   if (typeof (images) === "string") {
-    saveToBackend(images)
+    saveToBackend(images, [])
   } else {
-    deleteOldImage(JSON.parse(oldImages))
-    saveImage(images)
+    saveImage(images,JSON.parse(oldImages))
   }
 
 }

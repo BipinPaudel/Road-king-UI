@@ -1,13 +1,14 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {GlobalContext} from "../../../context/Provider";
 import {Button, Modal} from "semantic-ui-react";
 import NotificationAddView from "../../../layout/Notification/Add";
 import updateNotification from "../../../context/actions/notiication/updateNotification";
+import {CLEAR_ALERTS} from "../../../constants/actions";
 
 
 const UpdateNotificationContainer = ({notification, vehicle}) => {
   const [notificationUpdateOpen, setNotificationUpdateOpen] = React.useState(false);
-  const {notificationDispatch} = useContext(GlobalContext);
+  const {notificationState:{updateNotification: {errors, loading}},notificationDispatch} = useContext(GlobalContext);
   const [form, setForm] = useState({})
 
   const onChange = (e, {name, value}) => {
@@ -20,10 +21,23 @@ const UpdateNotificationContainer = ({notification, vehicle}) => {
       !form['day'] ||
       !form.km
 
-  const onSubmit = () => {
+  useEffect(() => {
+    if (errors && errors.length > 0){
+      setTimeout(()=> {
+        notificationDispatch({type: CLEAR_ALERTS})
+      }, 3000)
+    }
+  }, [errors]);
 
+  useEffect(() => {
+    if (loading === false && errors.length === 0){
+      setNotificationUpdateOpen(false);
+    }
+  }, [loading])
+
+  const onSubmit = () => {
     updateNotification(form)(notificationDispatch);
-    setNotificationUpdateOpen(false);
+    // setNotificationUpdateOpen(false);
   }
 
   return (
@@ -44,7 +58,10 @@ const UpdateNotificationContainer = ({notification, vehicle}) => {
             onChange={onChange}
             onSubmit={onSubmit}
             formInvalid={formInvalid}
-            notification={notification}/>
+            notification={notification}
+            errors={errors}
+            loading={loading}
+          />
         </Modal.Content>
 
       </Modal>

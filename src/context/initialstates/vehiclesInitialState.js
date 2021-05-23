@@ -7,7 +7,7 @@ export default {
   vehicle: null,
   addVehicle: {
     loading: false,
-    error: null,
+    errors: [],
     vehicle: null,
   },
   deleteVehicle:{
@@ -17,6 +17,6 @@ export default {
   updateVehicle: {
     vehicle: null,
     loading: false,
-    alerts:[]
+    errors:[]
   }
 }

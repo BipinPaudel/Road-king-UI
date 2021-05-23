@@ -1,32 +1,24 @@
-import React, {useContext, useState} from "react";
+import React from "react";
 import {Button, Modal, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import MaintenanceAddView from "../Add";
-import {GlobalContext} from "../../../context/Provider";
-import updateMaintenance from "../../../context/actions/maintenances/updateMaintenance";
 
-const MaintenanceListView = ({maintenances: {maintenances, maintenancesError}, vehicle, deleteMaintenance}) => {
+const MaintenanceListView = ({
+                               maintenances: {maintenances, maintenancesError},
+                               vehicle,
+                               deleteMaintenance,
+                               updateOps: {
+                                 setForm: updateSetForm,
+                                 onChange: updateOnChange,
+                                 formInvalid: updateFormInvalid,
+                                 onSubmit: updateOnSubmit,
+                                 maintenanceUpdateOpen,
+                                 setMaintenanceUpdateOpen,
+                                 loading: updateLoading,
+                                 errors: updateErrors
+                               }
+                             }) => {
 
-  const [maintenanceUpdateOpen, setMaintenanceUpdateOpen] = React.useState(false);
-  const [form, setForm] = useState({})
-  const {maintenanceDispatch} = useContext(GlobalContext);
-
-
-  const onChange = (e, {name, value}) => {
-    e.preventDefault();
-    setForm({...form, [name]: value})
-  }
-
-  const formInvalid = !form.description?.length ||
-      !form.km ||
-      !form.date?.length ||
-      !form.price;
-
-  const onSubmit = () => {
-    form.vehicle_id = vehicle.id
-    updateMaintenance(form)(maintenanceDispatch)
-    setMaintenanceUpdateOpen(false);
-  }
   return (
       <div>
         {
@@ -68,14 +60,16 @@ const MaintenanceListView = ({maintenances: {maintenances, maintenancesError}, v
                           onOpen={() => setMaintenanceUpdateOpen(true)}
                           open={maintenanceUpdateOpen}
                           size='small'
-                          trigger={<Button onClick={() => setForm(maintenance)}>Edit</Button>}>
+                          trigger={<Button onClick={() => updateSetForm(maintenance)}>Edit</Button>}>
                         <Modal.Header>Update Maintenance</Modal.Header>
                         <Modal.Content>
                           <MaintenanceAddView
-                              onChange={onChange}
-                              onSubmit={onSubmit}
-                              formInvalid={formInvalid}
+                              onChange={updateOnChange}
+                              onSubmit={updateOnSubmit}
+                              formInvalid={updateFormInvalid}
                               maintenance={maintenance}
+                              loading={updateLoading}
+                              errors={updateErrors}
                           />
                         </Modal.Content>
                       </Modal>

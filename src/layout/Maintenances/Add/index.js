@@ -5,74 +5,81 @@ import {
   Form,
   Button,
 } from "semantic-ui-react";
+import MyAlert from "../../../components/Myalert";
 
-const MaintenanceAddView = ({onChange,formInvalid, onSubmit, maintenance}) => {
-  console.log('this is form invalid '+formInvalid)
+const MaintenanceAddView = ({onChange, formInvalid, onSubmit, maintenance, loading, errors}) => {
   return (
-      <Grid centered>
-        <Grid.Column className="form-column">
-          <Card fluid>
-            <Card.Content>
-              <Form unstackable>
-                <Form.Group widths='equal'>
-                  <Form.Input
-                      fluid
-                      label='Description'
-                      placeholder='Description'
-                      name='description'
-                      onChange={onChange}
-                      defaultValue={maintenance?.description}
+      <div>
+        <Grid centered>
+          <Grid.Column className="form-column">
+            <Card fluid>
+              <Card.Content>
+                <Form unstackable>
+                  {
+                    errors && errors.length > 0 && <MyAlert alerts={errors} type={'invalid'}/>
+                  }
 
-                  />
-                </Form.Group>
+                  <Form.Group widths='equal'>
+                    <Form.Input
+                        fluid
+                        label='Description'
+                        placeholder='Description'
+                        name='description'
+                        onChange={onChange}
+                        defaultValue={maintenance?.description}
 
-                <Form.Group widths='equal'>
-                  <Form.Input
-                      fluid
-                      label='Km driven'
-                      placeholder='Km driven'
-                      name='km'
-                      type='number'
-                      defaultValue={maintenance?.km}
-                      onChange={onChange}
-                  />
-                </Form.Group>
+                    />
+                  </Form.Group>
 
-                <Form.Group widths='equal'>
-                  <Form.Input
-                      fluid
-                      label='Maintenance Date'
-                      placeholder='Maintenance Date'
-                      name='date'
-                      type='date'
-                      defaultValue={maintenance?.date}
-                      onChange={onChange}
-                  />
-                </Form.Group>
+                  <Form.Group widths='equal'>
+                    <Form.Input
+                        fluid
+                        label='Km driven'
+                        placeholder='Km driven'
+                        name='km'
+                        type='number'
+                        defaultValue={maintenance?.km}
+                        onChange={onChange}
+                    />
+                  </Form.Group>
 
-                <Form.Group widths='equal'>
-                  <Form.Input
-                      fluid
-                      label='Price'
-                      placeholder='Maintenance Cost'
-                      name='price'
-                      type='number'
-                      defaultValue={maintenance?.price}
-                      onChange={onChange}
-                  />
-                </Form.Group>
-                <Button
-                    disabled={formInvalid}
-                    primary type='submit'
-                    onClick={onSubmit}
-                >
-                  Submit
-                </Button>
-              </Form>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-      </Grid>
+                  <Form.Group widths='equal'>
+                    <Form.Input
+                        fluid
+                        label='Maintenance Date'
+                        placeholder='Maintenance Date'
+                        name='date'
+                        type='date'
+                        defaultValue={maintenance?.date}
+                        onChange={onChange}
+                    />
+                  </Form.Group>
+
+                  <Form.Group widths='equal'>
+                    <Form.Input
+                        fluid
+                        label='Price'
+                        placeholder='Maintenance Cost'
+                        name='price'
+                        type='number'
+                        defaultValue={maintenance?.price}
+                        onChange={onChange}
+                    />
+                  </Form.Group>
+                  <Button
+                      loading={loading}
+                      disabled={formInvalid}
+                      primary type='submit'
+                      onClick={onSubmit}
+                  >
+                    Submit
+                  </Button>
+                </Form>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid>
+      </div>
   )
 }
 

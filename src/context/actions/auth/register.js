@@ -1,11 +1,10 @@
-import {AUTH_FAILURE, SIGNUP_USER} from "../../../constants/actions";
+import { SIGNUP_FAILED, SIGNUP_USER} from "../../../constants/actions";
 import axiosInstance from "../../../helpers/axiosInstance";
 
-export const register = ({
-                                 email,
-                                 password,
-                                 confirmPassword: password_confirmation
-                               }) => async dispatch => {
+export const register = ({ email,
+                           password,
+                           confirmPassword: password_confirmation
+                         }, history) => async dispatch => {
   dispatch({type: SIGNUP_USER})
   try {
     const response = await axiosInstance().post('/api/v1/sign_up', {
@@ -15,7 +14,8 @@ export const register = ({
     })
     const loginInfo = response.data;
     dispatch({type: SIGNUP_USER, payload: loginInfo.data});
+    history.push("/vehicles");
   } catch (e) {
-    dispatch({type: AUTH_FAILURE, payload: [e.response.data.messages]});
+    dispatch({type: SIGNUP_FAILED, payload: e.response.data.errors});
   }
 }

@@ -6,7 +6,7 @@ import {Button, Form, Grid, Header as SemanticHeader, Segment} from "semantic-ui
 import {Header} from "../../components";
 import MyAlert from "../../components/Myalert";
 
-const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, alerts}}) => {
+const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, errors, loading}}) => {
   return (
       <div>
         <Header/>
@@ -19,7 +19,7 @@ const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, alerts}}) => {
               />
             </Link>
             {
-              alerts && alerts.length > 0 && <MyAlert alerts={alerts} type={'invalid'}/>
+              errors && errors.length > 0 && <MyAlert alerts={errors} type={'invalid'}/>
             }
             <SemanticHeader className="login__container">
               Sign up
@@ -45,6 +45,7 @@ const LoginUI = ({form: {onChange, form, onSubmit,loginFormValid, alerts}}) => {
                   />
                 </Form.Field>
                 <Button
+                    loading={loading}
                     type="submit"
                     disabled={loginFormValid}
                     className="login__signInButton"

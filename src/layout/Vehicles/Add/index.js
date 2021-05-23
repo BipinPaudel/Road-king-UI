@@ -11,8 +11,23 @@ import {
 } from "semantic-ui-react";
 import './index.css';
 import {categoriesToOptions, vehicleYearList} from "../../../utils/vehicleUtils";
+import MyAlert from "../../../components/Myalert";
 
-const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formInvalid, loading, categories, vehicle, isUpdate, isCreate}}) => {
+const CreateVehicle = ({
+                         form: {
+                           onChange,
+                           onImageChange,
+                           tempFile,
+                           onSubmit,
+                           formInvalid,
+                           loading,
+                           categories,
+                           vehicle,
+                           isUpdate,
+                           isCreate,
+                           errors
+                         }
+                       }) => {
   const imagePickRef = useRef(null);
   const chooseImage = () => {
     if (imagePickRef.current) {
@@ -20,13 +35,18 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
     }
   }
 
-  return ( (  isCreate || (isUpdate && vehicle) )&&
+  return ((isCreate || (isUpdate && vehicle)) &&
       <Grid centered>
         <Grid.Column className="form-column">
           <SemanticHeader> Create Vehicle </SemanticHeader>
           <Card fluid>
             <Card.Content>
               <Form unstackable>
+
+                {
+                  errors && errors.length > 0 && <MyAlert alerts={errors} type={'invalid'}/>
+                }
+
                 <input onChange={onImageChange} ref={imagePickRef} type="file" hidden/>
 
 
@@ -44,19 +64,19 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
 
                 <Form.Group widths='equal'>
                   <Form.Input
-                    fluid
-                    label='Title'
-                    placeholder='Title'
-                    name='title'
-                    onChange={onChange}
-                    defaultValue={vehicle?.title}
+                      fluid
+                      label='Title'
+                      placeholder='Title'
+                      name='title'
+                      onChange={onChange}
+                      defaultValue={vehicle?.title}
                   />
                 </Form.Group>
                 <Form.Group widths='equal'>
                   <Form.Input
                       fluid
                       selection
-                      defaultValue= {vehicle?.category_id}
+                      defaultValue={vehicle?.category_id}
                       label='Category'
                       placeholder='Category'
                       name='category_id'
@@ -68,7 +88,7 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                   <Form.Input
                       fluid
                       selection
-                      defaultValue = {vehicle?.make_year?.toString()}
+                      defaultValue={vehicle?.make_year?.toString()}
                       label='Make year'
                       placeholder='Make year'
                       name='make_year'
@@ -108,14 +128,14 @@ const CreateVehicle = ({form: {onChange, onImageChange, tempFile,onSubmit,formIn
                 </Form.Group>
                 <Form.Group widths='equal'>
                   <Form.Input
-                    fluid
-                    label='Description'
-                    placeholder='Description'
-                    name='description'
-                    onChange={onChange}
-                    type='text'
-                    defaultValue={vehicle?.description}
-                    />
+                      fluid
+                      label='Description'
+                      placeholder='Description'
+                      name='description'
+                      onChange={onChange}
+                      type='text'
+                      defaultValue={vehicle?.description}
+                  />
                 </Form.Group>
                 <Button
                     loading={loading}

@@ -8,6 +8,7 @@ import getVehicleDetail from "../../context/actions/vehicles/getVehicleDetail";
 import AddMaintenanceContainer from "./Add";
 import { Container} from "semantic-ui-react";
 import deleteMaintenance from "../../context/actions/maintenances/deleteMaintenance";
+import useForm from "./Update/useForm";
 
 const MaintenancesContainer = () => {
   const {maintenanceState, maintenanceDispatch} = useContext(GlobalContext);
@@ -15,7 +16,6 @@ const MaintenancesContainer = () => {
   const history = useHistory();
   const {id} = useParams();
   const {vehicle} = vehiclesState;
-  console.log('don maintenance state' ,maintenanceState);
   const {maintenances} = maintenanceState;
 
 
@@ -40,7 +40,7 @@ const MaintenancesContainer = () => {
 
           <AddMaintenanceContainer vehicle={vehicle}/>
 
-          <MaintenanceListView maintenances={maintenances} vehicle={vehicle} deleteMaintenance={deleteMaintenanceItem}/>
+          <MaintenanceListView maintenances={maintenances} vehicle={vehicle} deleteMaintenance={deleteMaintenanceItem} updateOps = {useForm({vehicle})}/>
         </Container>
       </div>
 

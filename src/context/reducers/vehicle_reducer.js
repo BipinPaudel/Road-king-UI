@@ -6,7 +6,12 @@ import {
   GET_SINGLE_VEHICLE_SUCCESS,
   ADD_VEHICLES_SUCCESS,
   ADD_VEHICLES_BEGIN,
-  DELETE_VEHICLE_SUCCESS, DELETE_VEHICLE_BEGIN, UPDATE_VEHICLES_BEGIN, UPDATE_VEHICLES_SUCCESS
+  DELETE_VEHICLE_SUCCESS,
+  DELETE_VEHICLE_BEGIN,
+  UPDATE_VEHICLES_BEGIN,
+  UPDATE_VEHICLES_SUCCESS,
+  ADD_VEHICLES_ERROR,
+  CLEAR_ALERTS, UPDATE_VEHICLES_ERROR
 } from '../../constants/actions';
 
 const vehicle_reducer = (state, action) => {
@@ -63,7 +68,18 @@ const vehicle_reducer = (state, action) => {
       ...state,
       addVehicle:{
         ...state.addVehicle,
-        loading: true
+        loading: true,
+        errors: []
+      }
+    }
+  }
+  if (action.type === ADD_VEHICLES_ERROR){
+    return {
+      ...state,
+      addVehicle:{
+        ...state.addVehicle,
+        errors: action.payload,
+        loading: false
       }
     }
   }
@@ -97,7 +113,7 @@ const vehicle_reducer = (state, action) => {
         ...state.updateVehicle,
         vehicle: null,
         loading: true,
-        alerts: [],
+        errors: [],
       }
     }
   }
@@ -109,7 +125,34 @@ const vehicle_reducer = (state, action) => {
         ...state.updateVehicle,
         loading: false,
         vehicle: action.payload,
-        alerts: [],
+        errors: [],
+      }
+    }
+  }
+
+  if (action.type === UPDATE_VEHICLES_ERROR){
+    return {
+      ...state,
+      updateVehicle: {
+        ...state.updateVehicle,
+        loading: false,
+        errors: action.payload
+      }
+    }
+  }
+
+  if (action.type === CLEAR_ALERTS){
+    return {
+      ...state,
+      addVehicle: {
+        ...state.addVehicle,
+        errors: [],
+        loading: false
+      },
+      updateVehicle: {
+        ...state.updateVehicle,
+        errors: [],
+        loading: false
       }
     }
   }

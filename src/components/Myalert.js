@@ -2,27 +2,23 @@ import React from "react";
 import {Message} from 'semantic-ui-react';
 
 const MyAlert = ({type, alerts}) => {
-
-
-  setTimeout(()=>{
-  }, 3000);
-
   if (alerts && alerts.length > 0) {
     return (
-        <div>
+        <div className={"vehicle_alerts"}>
           <Message.List>
-            {
-              alerts.map(alert => {
-                return (
-                    <Message key={alert} negative>
-                      <span className={type}>{alert}</span>
-                    </Message>
-                )
-              })
-            }
+            <Message negative>
+              {
+                alerts.map((alert) => {
+                  return (
+                      <div key={alert}>
+                        <span className={type}>{alert}</span>
+                      </div>
+                  )
+                })
+              }
+            </Message>
           </Message.List>
         </div>)
-
   }
 }
 

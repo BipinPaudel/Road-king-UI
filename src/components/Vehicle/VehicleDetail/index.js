@@ -15,7 +15,7 @@ const VehicleDetailContainer = () => {
   const history = useHistory();
   const {id} = useParams();
   const {vehicle, deleteVehicle: {loading:deleteVehicleLoading}} = vehiclesState;
-  const {notification} = notificationState;
+  const {notifications} = notificationState;
 
   const deleteSingleVehicle = (id) => {
     if (window.confirm('Are you sure you want to delete this data?')){
@@ -39,7 +39,7 @@ const VehicleDetailContainer = () => {
       <div>
         <Header/>
         <VehicleDetailView vehicle={vehicle} deleteVehicle={deleteSingleVehicle}/>
-        <NotificationListView vehicle={vehicle} notification={notification} deleteNotification={deleteNotificationItem}/>
+        <NotificationListView vehicle={vehicle} notification={notifications} deleteNotification={deleteNotificationItem}/>
       </div>
 
   )

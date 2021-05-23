@@ -4,11 +4,12 @@ import {useHistory, useParams} from "react-router-dom";
 import getVehicleDetail from "../../../context/actions/vehicles/getVehicleDetail";
 import updateVehicle from "../../../context/actions/vehicles/updateVehicle";
 import getCategories from "../../../context/actions/categories/getCategories";
+import {CLEAR_ALERTS} from "../../../constants/actions";
 
 export default () => {
   const {vehiclesState, vehiclesDispatch, categoryState, categoryDispatch} = useContext(GlobalContext);
   const [tempFile, setTempFile] = useState(null)
-  const {vehicle, updateVehicle:{loading, vehicle: updatedVehicle}} = vehiclesState;
+  const {vehicle, updateVehicle:{loading, errors ,vehicle: updatedVehicle}} = vehiclesState;
 
   const {listCategories: {categories}} = categoryState;
   const [form, setForm] = useState({});
@@ -21,6 +22,14 @@ export default () => {
 
   const history = useHistory();
   const {id} = useParams();
+
+  useEffect(()=> {
+    if (errors && errors.length > 0){
+      setTimeout(()=>{
+        vehiclesDispatch({type: CLEAR_ALERTS})
+      }, 3000)
+    }
+  }, [errors])
 
   useEffect(()=> {
     if (id){
@@ -56,5 +65,5 @@ export default () => {
 
 
 
-  return {loading, onChange, formInvalid, onSubmit, form, categories, vehicle, isUpdate:true, tempFile, onImageChange}
+  return {loading, onChange, formInvalid, onSubmit, form, categories, vehicle, isUpdate:true, tempFile, onImageChange, errors}
 }

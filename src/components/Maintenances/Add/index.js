@@ -3,10 +3,11 @@ import {Button, Modal} from "semantic-ui-react";
 import MaintenanceAddView from "../../../layout/Maintenances/Add";
 import createMaintenance from "../../../context/actions/maintenances/createMaintenance";
 import {GlobalContext} from "../../../context/Provider";
+import {CLEAR_ALERTS} from "../../../constants/actions";
 
 const AddMaintenanceContainer = ({vehicle}) => {
   const [maintenanceAddOpen, setMaintenanceAddOpen] = React.useState(false)
-  const { maintenanceDispatch} = useContext(GlobalContext);
+  const {maintenanceState: {addMaintenance: {loading, errors}}, maintenanceDispatch} = useContext(GlobalContext);
   const [form, setForm] = useState({})
 
   const onChange = (e,{name, value}) => {
@@ -19,10 +20,23 @@ const AddMaintenanceContainer = ({vehicle}) => {
       !form.date?.length ||
       !form.price?.length;
 
+  useEffect(() => {
+    if (errors && errors.length > 0){
+      setTimeout(()=> {
+        maintenanceDispatch({type: CLEAR_ALERTS})
+      }, 3000)
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    if (loading === false && errors.length === 0){
+      setMaintenanceAddOpen(false);
+    }
+  }, [loading])
+
   const onSubmit = () => {
     form.vehicle_id = vehicle.id
     createMaintenance(form)(maintenanceDispatch)
-    setMaintenanceAddOpen(false);
   }
 
   return (
@@ -39,6 +53,8 @@ const AddMaintenanceContainer = ({vehicle}) => {
             onChange={onChange}
             onSubmit={onSubmit}
             formInvalid={formInvalid}
+            errors={errors}
+            loading={loading}
             />
           </Modal.Content>
         </Modal>

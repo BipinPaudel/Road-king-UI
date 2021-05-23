@@ -5,15 +5,18 @@ import {
   Form,
   Button,
 } from "semantic-ui-react";
+import MyAlert from "../../../components/Myalert";
 
-const NotificationAddView = ({onChange, onSubmit, formInvalid, notification}) => {
-  console.log('from add view '+ formInvalid)
+const NotificationAddView = ({onChange, onSubmit, formInvalid, notification, errors, loading}) => {
   return (
       <Grid centered>
         <Grid.Column className="form-column">
           <Card fluid>
             <Card.Content>
               <Form unstackable>
+                {
+                  errors && errors.length > 0 && <MyAlert alerts={errors} type={'invalid'}/>
+                }
                 <Form.Group widths='equal'>
                   <Form.Input
                       fluid
@@ -38,6 +41,7 @@ const NotificationAddView = ({onChange, onSubmit, formInvalid, notification}) =>
                   />
                 </Form.Group>
                 <Button
+                    loading={loading}
                     disabled={formInvalid}
                     primary type='submit'
                     onClick={onSubmit}

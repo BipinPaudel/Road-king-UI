@@ -10,8 +10,9 @@ import {
     Segment
 } from "semantic-ui-react";
 import {Header} from "../../components";
+import MyAlert from "../../components/Myalert";
 
-const RegisterUI = ({form: {onChange, form, registerFormValid, onSubmit, fieldErrors}}) => {
+const RegisterUI = ({form: {onChange, form, registerFormValid, onSubmit, errors}}) => {
   return (
       <div>
         <Header/>
@@ -23,9 +24,9 @@ const RegisterUI = ({form: {onChange, form, registerFormValid, onSubmit, fieldEr
                   alt=""
               />
             </Link>
-            {/*{*/}
-            {/*  isAlert && <MyAlert type={'invalid'}/>*/}
-            {/*}*/}
+            {
+              errors && errors.length > 0 && <MyAlert alerts={errors} type={'invalid'}/>
+            }
             <SemanticHeader className="login__container">
               Sign up
             </SemanticHeader>
